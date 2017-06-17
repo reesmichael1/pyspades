@@ -16,9 +16,9 @@ Scenario: Evaluating a strong hand
 Scenario: Evaluating a weak hand
         Given I have a hand of cards
         And I have the King of Clubs # would normally expect one trick, but...
-        And I have nine numbered Clubs # one opponent will probably have 0 Clubs
+        And I have eight numbered Clubs # one opponent will probably have 0 Clubs
         And I have the Ace of Spades # cannot go nil
-        And I have two numbered Hearts
+        And I have three numbered Hearts
         When Asked to score my hand
         Then I expect to win one trick
 
@@ -31,3 +31,11 @@ Scenario: Evaluating a good hand to go nil
         And I have the Eight of Spades
         When Asked to score my hand
         Then I expect to win zero tricks
+
+Scenario: Evaluating a hand with lots of Spades
+        Given I have a hand of cards
+        And I have two numbered Clubs # one surprise
+        And I have two numbered Hearts # another surprise
+        And I have two numbered Diamonds # one last surprise
+        And I have seven numbered Spades # can expect two more
+        Then I expect to win five tricks

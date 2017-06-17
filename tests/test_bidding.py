@@ -19,9 +19,13 @@ def test_bidding_nil():
     pass
 
 
+@scenario('bidding.feature', 'Evaluating a hand with lots of Spades')
+def test_bidding_many_spades():
+    pass
+
+
 def add_numbered_cards_of_suit_to_hand(hand, n, suit):
-    numbered_cards = ['One', 'Two', 'Three', 'Four', 'Five', 'Six',
-                      'Seven', 'Eight', 'Nine', 'Ten']
+    numbered_cards = ['2', '3', '4', '5', '6', '7', '8', '9']
     for _ in range(n):
         random.shuffle(numbered_cards)
         hand.add(pydealer.Card(numbered_cards.pop(), suit))
@@ -74,6 +78,16 @@ def add_three_numbered_diamonds(hand_of_cards):
     add_numbered_cards_of_suit_to_hand(hand_of_cards, 3, 'Diamonds')
 
 
+@given('I have two numbered Clubs')
+def add_two_numbered_clubs(hand_of_cards):
+    add_numbered_cards_of_suit_to_hand(hand_of_cards, 2, 'Clubs')
+
+
+@given('I have two numbered Hearts')
+def add_two_numbered_hearts(hand_of_cards):
+    add_numbered_cards_of_suit_to_hand(hand_of_cards, 2, 'Hearts')
+
+
 @given('I have the King of Clubs')
 def add_king_of_clubs(hand_of_cards):
     hand_of_cards.add(pydealer.Card('King', 'Clubs'))
@@ -89,14 +103,24 @@ def add_two_numbered_spades(hand_of_cards):
     add_numbered_cards_of_suit_to_hand(hand_of_cards, 2, 'Spades')
 
 
-@given('I have two numbered Hearts')
-def add_two_numbered_hearts(hand_of_cards):
-    add_numbered_cards_of_suit_to_hand(hand_of_cards, 2, 'Hearts')
+@given('I have three numbered Hearts')
+def add_three_numbered_hearts(hand_of_cards):
+    add_numbered_cards_of_suit_to_hand(hand_of_cards, 3, 'Hearts')
 
 
-@given('I have nine numbered Clubs')
+@given('I have eight numbered Clubs')
 def add_nine_numbered_clubs(hand_of_cards):
-    add_numbered_cards_of_suit_to_hand(hand_of_cards, 9, 'Clubs')
+    add_numbered_cards_of_suit_to_hand(hand_of_cards, 8, 'Clubs')
+
+
+@given('I have two numbered Diamonds')
+def add_two_numbered_diamonds(hand_of_cards):
+    add_numbered_cards_of_suit_to_hand(hand_of_cards, 2, 'Diamonds')
+
+
+@given('I have seven numbered Spades')
+def add_seven_numbered_spades(hand_of_cards):
+    add_numbered_cards_of_suit_to_hand(hand_of_cards, 7, 'Spades')
 
 
 @when('Asked to score my hand')
@@ -117,3 +141,8 @@ def win_one_trick(hand_of_cards):
 @then('I expect to win zero tricks')
 def win_zero_tricks(hand_of_cards):
     assert score_hand(hand_of_cards) is 0
+
+
+@then('I expect to win five tricks')
+def win_five_tricks(hand_of_cards):
+    assert score_hand(hand_of_cards) is 5
