@@ -3,3 +3,4 @@
 tests/.cache/*
 pyspades.egg-info/*
 *.pyc
+build/*
